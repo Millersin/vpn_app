@@ -1,0 +1,1 @@
+C:\Users\anarc\Documents\Projects\android\nordvpn\build\app\intermediates\cxx\RelWithDebInfo\5q2b2d1b\obj\arm64-v8a

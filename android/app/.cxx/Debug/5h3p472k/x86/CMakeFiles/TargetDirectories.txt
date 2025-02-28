@@ -1,0 +1,2 @@
+C:/Users/anarc/Documents/Projects/android/nordvpn/android/app/.cxx/Debug/5h3p472k/x86/CMakeFiles/edit_cache.dir
+C:/Users/anarc/Documents/Projects/android/nordvpn/android/app/.cxx/Debug/5h3p472k/x86/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "237112806231",
+    "project_id": "nerdvpn-codecanyon",
+    "storage_bucket": "nerdvpn-codecanyon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237112806231:android:b753eabb27bd6a05b70c12",
+        "android_client_info": {
+          "package_name": "com.laskarmedia.nerdvpn"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDETBirM249TGN8OMW8jBt3-XAdP6llEpk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

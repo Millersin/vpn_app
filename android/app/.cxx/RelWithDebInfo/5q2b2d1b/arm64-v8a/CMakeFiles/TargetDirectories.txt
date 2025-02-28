@@ -1,0 +1,2 @@
+C:/Users/anarc/Documents/Projects/android/nordvpn/android/app/.cxx/RelWithDebInfo/5q2b2d1b/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/anarc/Documents/Projects/android/nordvpn/android/app/.cxx/RelWithDebInfo/5q2b2d1b/arm64-v8a/CMakeFiles/rebuild_cache.dir
