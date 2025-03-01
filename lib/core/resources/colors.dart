@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 ///General Colors
-const Color primaryColor = Color(0xff5781EB);
-const Color secondaryColor = Color(0xff7D58EC);
+const Color primaryColor = Color(0xFF63347B);
+const Color secondaryColor = Color(0xFF63347B);
 
-const Color primaryShade = Color(0xff3566E2);
-const Color secondaryShade = Color(0xff6136E3);
+const Color primaryShade = Color(0xFFD9A8F2);
+const Color secondaryShade = Color(0xFFD9A8F2);
 
 LinearGradient primaryGradient = const LinearGradient(
   colors: [primaryColor, primaryShade],

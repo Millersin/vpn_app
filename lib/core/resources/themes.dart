@@ -38,3 +38,17 @@ ThemeData get darkTheme => ThemeData.dark().copyWith(
     );
 
 TextTheme textTheme(BuildContext context) => Theme.of(context).textTheme;
+
+/// Градиент для светлой темы
+final LinearGradient lightBackgroundGradient = LinearGradient(
+  begin: Alignment.bottomCenter,
+  end: Alignment.topCenter,
+  colors: [const Color(0xFF7C619C), const Color(0xFFD5B4E5)],
+);
+
+/// Градиент для темной темы
+final LinearGradient darkBackgroundGradient = LinearGradient(
+  begin: Alignment.bottomCenter,
+  end: Alignment.topCenter,
+  colors: [const Color(0xFF140C24), const Color(0xFF63347B)],
+);

@@ -36,7 +36,7 @@ class MapBackground extends StatelessWidget {
                 height: 150,
                 width: MediaQuery.of(context).size.width,
                 fit: BoxFit.cover,
-                color: Colors.grey.shade100.withOpacity(.3),
+                color: Colors.transparent,
               );
             }
           },

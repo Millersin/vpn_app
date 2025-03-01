@@ -52,38 +52,72 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return AdvancedDrawer(
       controller: _controller,
-      drawer: ListView(children: [
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+      drawer: Stack(
+        // Изменение: Используем Stack для наложения картинки на фон
+        children: [
+          // Фоновая картинка
+          Positioned(
+            bottom: 0, // Закрепляем картинку снизу
+            left: 0,
+            right: 0,
+            child: Image.asset(
+              "assets/images/chel.png", // Путь к вашей картинке
+              fit: BoxFit.cover, // Растягиваем картинку
+            ),
+          ),
+          // Затемнение (опционально)
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.transparent, Colors.black.withOpacity(0.5)], // Затемнение снизу
+              ),
+            ),
+          ),
+          // Основной контент
+          ListView(
             children: [
-              Text("settings", style: Theme.of(context).textTheme.bodySmall).tr(),
-              const Divider(),
-              ListTile(leading: const Icon(Icons.color_lens), title: const Text('theme_mode').tr(), onTap: () => ThemeProvider.read(context).changeThemeMode(context)),
-              ListTile(leading: const Icon(Icons.language), title: const Text('language').tr(), onTap: () => ThemeProvider.read(context).changeLanguage(context)),
-              ListTile(leading: const Icon(Icons.update), title: const Text('check_update').tr(), onTap: () => _checkUpdate()),
-              const ColumnDivider(space: 20),
-              Text("about_us", style: Theme.of(context).textTheme.bodySmall).tr(),
-              const Divider(),
-              ListTile(
-                  leading: const Icon(Icons.privacy_tip),
-                  title: const Text('privacy_policy').tr(),
-                  onTap: () => startScreen(context, HtmlScreen(title: "privacy_policy".tr(), asset: "assets/html/privacy-policy.html"))),
-              ListTile(
-                  leading: const Icon(Icons.description),
-                  title: const Text('terms_of_service').tr(),
-                  onTap: () => startScreen(context, HtmlScreen(title: "terms_of_service".tr(), asset: "assets/html/tos.html"))),
-              ListTile(leading: const Icon(Icons.info), title: const Text('about').tr(), onTap: () => _aboutClick(context)),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text("settings", style: Theme.of(context).textTheme.bodySmall).tr(),
+                    const Divider(),
+                    ListTile(leading: const Icon(Icons.color_lens), title: const Text('theme_mode').tr(), onTap: () => ThemeProvider.read(context).changeThemeMode(context)),
+                    ListTile(leading: const Icon(Icons.language), title: const Text('language').tr(), onTap: () => ThemeProvider.read(context).changeLanguage(context)),
+                    ListTile(leading: const Icon(Icons.update), title: const Text('check_update').tr(), onTap: () => _checkUpdate()),
+                    const ColumnDivider(space: 20),
+                    Text("about_us", style: Theme.of(context).textTheme.bodySmall).tr(),
+                    const Divider(),
+                    ListTile(
+                        leading: const Icon(Icons.privacy_tip),
+                        title: const Text('privacy_policy').tr(),
+                        onTap: () => startScreen(context, HtmlScreen(title: "privacy_policy".tr(), asset: "assets/html/privacy-policy.html"))),
+                    ListTile(
+                        leading: const Icon(Icons.description),
+                        title: const Text('terms_of_service').tr(),
+                        onTap: () => startScreen(context, HtmlScreen(title: "terms_of_service".tr(), asset: "assets/html/tos.html"))),
+                    ListTile(leading: const Icon(Icons.info), title: const Text('about').tr(), onTap: () => _aboutClick(context)),
+                  ],
+                ),
+              ),
             ],
           ),
-        ),
-      ]),
+        ],
+      ),
       child: Scaffold(
         body: Stack(
           fit: StackFit.expand,
           children: [
-            Image.asset("assets/images/background_world.png", fit: BoxFit.cover, color: Colors.grey.withOpacity(.3)),
+            Container(
+              decoration: BoxDecoration(
+                gradient: Theme.of(context).brightness == Brightness.dark
+                    ? darkBackgroundGradient
+                    : lightBackgroundGradient,
+              ),
+            ),
             ListView(
               physics: const ClampingScrollPhysics(),
               shrinkWrap: true,
@@ -139,10 +173,10 @@ class _MainScreenState extends State<MainScreen> {
                           height: 32,
                           child: config.flag.contains("http")
                               ? CustomImage(
-                                  url: config.flag,
-                                  fit: BoxFit.contain,
-                                  borderRadius: BorderRadius.circular(5),
-                                )
+                            url: config.flag,
+                            fit: BoxFit.contain,
+                            borderRadius: BorderRadius.circular(5),
+                          )
                               : Image.asset("icons/flags/png/${config.flag}.png", package: "country_icons"),
                         ),
                       const SizedBox(width: 10),
