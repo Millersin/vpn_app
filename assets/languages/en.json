@@ -1,7 +1,7 @@
 {
     "server_list": "Server List",
-    "standard_servers": "Standard Servers",
-    "premium_servers": "Premium Servers",
+    "standard_servers": "Free",
+    "premium_servers": "Premium",
     "settings": "Settings",
     "check_update": "Check for Updates",
     "see_more_details": "See More Details",
@@ -37,5 +37,7 @@
     "restore_purchase": "Restore Purchase",
     "no_restore_title": "Purchase not found",
     "no_restore_description": "You don't have any purchases in the past",
-    "understand": "Understand"
+    "understand": "Understand",
+    "language_english": "English",
+    "language_russian": "Russian"
 }

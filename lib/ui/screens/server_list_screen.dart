@@ -18,12 +18,18 @@ class ServerListScreen extends StatefulWidget {
   State<ServerListScreen> createState() => _ServerListScreenState();
 }
 
-class _ServerListScreenState extends State<ServerListScreen> {
+class _ServerListScreenState extends State<ServerListScreen> with SingleTickerProviderStateMixin {
   final List<RefreshController> _refreshControllers = List.generate(2, (index) => RefreshController(initialRefresh: !cacheServerList));
   List<VpnConfig> _servers = [];
+  late TabController _tabController; // Контроллер для управления вкладками
 
   @override
   void initState() {
+    super.initState();
+
+    // Инициализация TabController
+    _tabController = TabController(length: 2, vsync: this);
+
     ServicesBinding.instance.addPostFrameCallback((timeStamp) {
       if (cacheServerList) {
         Preferences.instance().then((value) {
@@ -39,7 +45,6 @@ class _ServerListScreenState extends State<ServerListScreen> {
         loadData();
       }
     });
-    super.initState();
   }
 
   @override
@@ -47,56 +52,110 @@ class _ServerListScreenState extends State<ServerListScreen> {
     for (var element in _refreshControllers) {
       element.dispose();
     }
+    _tabController.dispose(); // Освобождаем ресурсы TabController
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        body: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) => [
-            SliverAppBar(
-              title: const Text('server_list').tr(),
-              floating: true,
-              pinned: true,
-              forceElevated: innerBoxIsScrolled,
-              bottom: PreferredSize(preferredSize: const Size.fromHeight(70), child: _serversTab()),
+    return Scaffold(
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) => [
+          SliverAppBar(
+            title: const Text('server_list').tr(),
+            floating: true,
+            pinned: true,
+            forceElevated: innerBoxIsScrolled,
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(70),
+              child: _serversTab(), // Используем кастомный виджет для вкладок
             ),
-          ],
-          body: ExtendedTabBarView(
-            children: List.generate(2, (index) {
-              var data = _servers.where((e) => e.status == index).toList();
-              return SmartRefresher(
-                onRefresh: loadData,
-                controller: _refreshControllers[index],
-                child: ListView(
-                  addAutomaticKeepAlives: true,
-                  padding: EdgeInsets.zero,
-                  children: List.generate(data.length, (index) => ServerItem(data[index])),
-                ),
-              );
-            }),
           ),
+        ],
+        body: ExtendedTabBarView(
+          controller: _tabController, // Передаем контроллер в ExtendedTabBarView
+          children: List.generate(2, (index) {
+            var data = _servers.where((e) => e.status == index).toList();
+            return SmartRefresher(
+              onRefresh: loadData,
+              controller: _refreshControllers[index],
+              child: ListView(
+                addAutomaticKeepAlives: true,
+                padding: EdgeInsets.zero,
+                children: List.generate(data.length, (index) => ServerItem(data[index])),
+              ),
+            );
+          }),
         ),
       ),
     );
   }
 
+  // Кастомный виджет для вкладок
   Widget _serversTab() {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(color: Colors.grey.withOpacity(.3), borderRadius: BorderRadius.circular(20)),
-      child: TabBar(
-        dividerColor: Colors.transparent,
-        splashBorderRadius: BorderRadius.circular(20),
-        indicatorColor: Colors.white,
-        indicatorSize: TabBarIndicatorSize.tab,
-        labelColor: Colors.white,
-        indicator: BoxDecoration(color: primaryColor, borderRadius: BorderRadius.circular(20)),
-        tabs: [Tab(text: 'standard_servers'.tr()), Tab(text: 'premium_servers'.tr())],
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+      ),
+      child: Row(
+        children: [
+          // Кнопка для стандартных серверов
+          Expanded(
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _tabController.index = 0; // Переключаем на первую вкладку
+                });
+              },
+              child: Container(
+                margin: const EdgeInsets.only(right: 5), // Расстояние между кнопками
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                  color: _tabController.index == 0 ? Theme.of(context).colorScheme.surface : Colors.transparent, // Заливка для выбранного сервера
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.surface, // Цвет бордера
+                    width: 1, // Толщина бордера
+                  ),
+                  borderRadius: BorderRadius.circular(20), // Радиус бордера
+                ),
+                child: Center(
+                  child: Text(
+                    'standard_servers'.tr(),
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          // Кнопка для премиум серверов
+          Expanded(
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _tabController.index = 1; // Переключаем на вторую вкладку
+                });
+              },
+              child: Container(
+                margin: const EdgeInsets.only(left: 5), // Расстояние между кнопками
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                  color: _tabController.index == 1 ? Theme.of(context).colorScheme.surface : Colors.transparent, // Заливка для выбранного сервера
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.surface, // Цвет бордера
+                    width: 1, // Толщина бордера
+                  ),
+                  borderRadius: BorderRadius.circular(20), // Радиус бордера
+                ),
+                child: Center(
+                  child: Text(
+                    'premium_servers'.tr(),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

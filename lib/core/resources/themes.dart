@@ -4,7 +4,7 @@ import 'package:nerdvpn/core/resources/colors.dart';
 ThemeData get lightTheme => ThemeData.light().copyWith(
       primaryColor: primaryColor,
       scaffoldBackgroundColor: backgroundLight,
-      dividerTheme: DividerThemeData(color: Colors.grey.shade300),
+      dividerTheme: DividerThemeData(color: Color(0xFF7C619C)),
       appBarTheme: const AppBarTheme(
         centerTitle: true,
         elevation: 0,

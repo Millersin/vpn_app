@@ -1,7 +1,7 @@
 {
     "server_list": "Список серверов",
-    "standard_servers": "Стандартные серверы",
-    "premium_servers": "Премиум серверы",
+    "standard_servers": "Бесплатные",
+    "premium_servers": "Премиум",
     "settings": "Настройки",
     "check_update": "Проверить обновления",
     "see_more_details": "Посмотреть больше деталей",
@@ -37,5 +37,7 @@
     "restore_purchase": "Восстановить покупку",
     "no_restore_title": "Покупка не найдена",
     "no_restore_description": "У вас нет покупок в прошлом",
-    "understand": "Понял"
+    "understand": "Понял",
+    "language_english": "Английский",
+    "language_russian": "Русский"
 }

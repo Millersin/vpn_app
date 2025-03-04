@@ -163,15 +163,7 @@ class _ConnectionButtonState extends State<ConnectionButton> with SingleTickerPr
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        gradient: greyGradient,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(.4),
-            blurRadius: 20,
-            spreadRadius: 10,
-            offset: const Offset(0, 10),
-          ),
-        ],
+        color: Color(0xFF8145A0),
       ),
       padding: const EdgeInsets.all(10),
       child: Container(
@@ -184,11 +176,11 @@ class _ConnectionButtonState extends State<ConnectionButton> with SingleTickerPr
             Icon(
               Icons.power_settings_new_rounded,
               size: 70,
-              color: Colors.grey.withOpacity(.8),
+              color: Color(0xFF8145A0),
             ),
             Text(
               "DISCONNECTED",
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.grey.withOpacity(.8), fontSize: 10, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Color(0xFF8145A0), fontSize: 10, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ],
