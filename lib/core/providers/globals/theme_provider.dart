@@ -79,14 +79,19 @@ class ThemeProvider extends ChangeNotifier {
           mainAxisSize: MainAxisSize.min,
           children: [
             const Text("language_subtitle").tr(),
-            const ColumnDivider(),
-            ...supportedLocales
-                .map((item) => RadioListTile<Locale>(
-                      value: item,
-                      groupValue: context.locale,
-                      title: Text(CountryCodes.detailsForLocale(item).localizedName ?? "Unknown ${item.languageCode}"),
-                      onChanged: (value) => context.setLocale(value!),
-                    ))
+            const ColumnDivider(), // Разделитель/отступ между элементами
+            ...supportedLocales.map((item) => RadioListTile<Locale>(
+              value: item, // Значение для радио-кнопки (Locale)
+              groupValue: context.locale, // Текущая локаль (выбранная)
+              title: Text(
+                item.languageCode == 'ru' 
+                  ? 'Русский' 
+                  : item.languageCode == 'en' 
+                    ? 'Английский' 
+                    : CountryCodes.detailsForLocale(item).localizedName ?? "Unknown ${item.languageCode}",
+              ), // Текст зависит от локали
+              onChanged: (value) => context.setLocale(value!), // Обработчик изменения локали
+            )),
                 
           ],
         ),
