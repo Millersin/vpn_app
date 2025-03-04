@@ -24,55 +24,99 @@ class SubscriptionScreen extends StatefulWidget {
 class _SubscriptionScreenState extends State<SubscriptionScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(colors: primaryGradient.colors, begin: Alignment.topCenter, end: Alignment.bottomCenter),
-      ),
-      child: Scaffold(
+    return Scaffold(
+
+      // Фон всей вкладки под цвет выбранной темы
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      appBar: AppBar(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          leading: const CloseButton(color: Colors.white,),
+        leading: CloseButton(
+          color: Theme.of(context).brightness == Brightness.light
+              ? Colors.black // Цвет для светлой темы
+              : Colors.white, // Цвет для тёмной темы
         ),
-        body: Stack(
-          fit: StackFit.expand,
-          children: [
-            Image.asset('assets/images/background_world.png', fit: BoxFit.fitHeight, color: primaryColor),
-            Consumer<IAPProvider>(
-              builder: (context, value, child) {
-                return Center(
-                  child: ListView(
-                    shrinkWrap: true,
-                    physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.all(20),
-                    children: [
-                      Text(
-                        "subscription_title",
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.white),
-                      ).tr(),
-                      const ColumnDivider(),
-                      LottieBuilder.asset("assets/animations/crown_pro.json", width: 100, height: 100),
-                      const ColumnDivider(),
-                      Text(
-                        "subscription_description",
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.grey.shade300),
-                      ).tr(),
-                      const ColumnDivider(space: 20),
-                      ...value.productItems.map((e) => _subsButton(value, e)),
-                      if (Platform.isIOS) ...[const ColumnDivider(space: 20), _restoreButton(value)]
-                    ],
+      ),
+      body: Consumer<IAPProvider>(
+        builder: (context, value, child) {
+          return ListView(
+            children: [
+              // Текст выше картинки
+              Text(
+                "Premium",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  color: Theme.of(context).textTheme.bodyLarge!.color,
+                  fontWeight: FontWeight.bold,
+                ),
+              ).tr(),
+              const ColumnDivider(space: 10),
+              Container(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  "subscription_title",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).textTheme.bodyMedium!.color),
+                ).tr(),
+              ),
+
+              // Центральная картинка, растянутая на 100% ширины
+              SizedBox(
+                width: double.infinity, // Растягиваем на всю ширину экрана
+                child: Image.asset(
+                  'assets/images/premium_img.png', // Замените на путь к вашей картинке
+                  fit: BoxFit.cover, // Растягиваем картинку, чтобы она заполнила всё пространство
+                ),
+              ),
+
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: CupertinoButton(
+                  onPressed: () {
+                    // Здесь добавьте логику, которая должна сработать при нажатии на кнопку
+                    print("Кнопка 'Купить' нажата");
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10), // Дополнительный отступ для текста
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface, // Цвет фона кнопки
+                      borderRadius: BorderRadius.circular(20), // Радиус углов кнопки
+                    ),
+                    child: Text(
+                      "buy_button", // Преобразуем текст в верхний регистр
+                      style: TextStyle(
+                        color: Colors.white, // Цвет текста
+                        fontWeight: FontWeight.bold, // Сделаем текст жирным
+                      ),
+                    ).tr(),
                   ),
-                );
-              },
-            ),
-          ],
-        ),
+                ),
+              ),
+
+              // Текст ниже картинки
+              Container(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  "subscription_description",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).textTheme.bodyMedium!.color),
+                ).tr(),
+              ),
+              const ColumnDivider(space: 20), // Отступ между текстом и кнопками (можно менять высоту)
+
+              // Кнопки подписки
+              ...value.productItems.map((e) => _subsButton(value, e)),
+              if (Platform.isIOS) ...[
+                const ColumnDivider(space: 20), // Отступ между кнопками и кнопкой восстановления (можно менять высоту)
+                _restoreButton(value),
+              ],
+            ],
+          );
+        },
       ),
     );
   }
 
+  // Виджет для кнопки подписки
   Widget _subsButton(IAPProvider provider, IAPItem e) {
     return CupertinoButton(
       padding: EdgeInsets.zero,
@@ -82,7 +126,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
       child: SizedBox(
         height: 100,
         child: CustomCard(
-          margin: const EdgeInsets.symmetric(vertical: 5),
+          margin: const EdgeInsets.symmetric(vertical: 5), // Отступы между кнопками (можно менять)
           showOnOverflow: false,
           child: Stack(
             children: [
@@ -109,6 +153,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
     );
   }
 
+  // Виджет для кнопки восстановления покупки
   Widget _restoreButton(IAPProvider provider) {
     return CupertinoButton(
       padding: EdgeInsets.zero,
@@ -118,7 +163,12 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
             NAlertDialog(
               title: Text("no_restore_title".tr()),
               content: Text("no_restore_description".tr()),
-              actions: [TextButton(onPressed: () => closeScreen(context), child: Text("understand".tr()))],
+              actions: [
+                TextButton(
+                  onPressed: () => closeScreen(context),
+                  child: Text("understand".tr()),
+                ),
+              ],
             ).show(context);
           }
         });

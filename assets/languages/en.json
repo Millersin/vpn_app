@@ -9,8 +9,8 @@
     "select_server": "Select Server",
     "download": "Download",
     "upload": "Upload",
-    "subscription_title": "Lets Subscribe!",
-    "subscription_description": "By Subscribing will gives you unlimited access to all app features. If you don't cancel before trial ends, you will be charged the amount chosen above until you cancel",
+    "subscription_title": "Buy Premium and participate in the prize draw!",
+    "subscription_description": "Buy Premium and get access to the best connections, as well as a monthly prize draw!",
     "theme_mode": "Theme Mode",
     "theme_mode_title": "Theme Mode",
     "theme_mode_subtitle": "Choose your theme mode",
@@ -39,5 +39,6 @@
     "no_restore_description": "You don't have any purchases in the past",
     "understand": "Understand",
     "language_english": "English",
-    "language_russian": "Russian"
+    "language_russian": "Russian",
+    "buy_button": "BUY"
 }

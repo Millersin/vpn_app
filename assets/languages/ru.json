@@ -9,8 +9,8 @@
     "select_server": "Выбрать сервер",
     "download": "Скачать",
     "upload": "Загрузить",
-    "subscription_title": "Подпишитесь!",
-    "subscription_description": "Подписка даст вам неограниченный доступ ко всем функциям приложения. Если вы не отмените подписку до окончания пробного периода, с вас будет списана сумма, указанная выше, до тех пор, пока вы не отмените подписку",
+    "subscription_title": "Купите Premium и участвуйте в розыгрыше призов!",
+    "subscription_description": "Купите Premium и получите доступ к лучшим соединениям, а также ежемесячный розыгрыш призов!",
     "theme_mode": "Режим темы",
     "theme_mode_title": "Режим темы",
     "theme_mode_subtitle": "Выберите режим темы",
@@ -39,5 +39,6 @@
     "no_restore_description": "У вас нет покупок в прошлом",
     "understand": "Понял",
     "language_english": "Английский",
-    "language_russian": "Русский"
+    "language_russian": "Русский",
+    "buy_button": "КУПИТЬ"
 }
