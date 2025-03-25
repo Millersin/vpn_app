@@ -56,10 +56,43 @@ class _ServerItemState extends State<ServerItem> with AutomaticKeepAliveClientMi
             Expanded(child: Text(widget.config.name, style: const TextStyle(color: Colors.white))),
             const RowDivider(),
             if (showSignalStrength)
-              FutureBuilder(
-                  future: Future.microtask(() => Ping(widget.config.serverIp, count: 1).stream.first),
+              FutureBuilder<PingData?>(
+                  future: Future.microtask(() async {
+                    try {
+                      // Увеличиваем количество пингов для более точного результата
+                      var pingResult = await Ping(widget.config.serverIp, count: 3).stream.first;
+                      print("Ping result: $pingResult"); // Отладочный вывод
+                      return pingResult;
+                    } catch (e) {
+                      return null; // В случае ошибки возвращаем null
+                    }
+                  }),
                   builder: (context, snapshot) {
-                    var ms = DateTime.now().difference(now).inMilliseconds;
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Image.asset("assets/icons/signal0.png", width: 32, height: 32, color: Colors.grey.shade400);
+                    }
+
+                    // Проверяем наличие ошибок или отсутствие данных
+                    if (snapshot.hasError || !snapshot.hasData) {
+                      return Image.asset("assets/icons/signal0.png", width: 32, height: 32, color: Colors.red);
+                    }
+
+                    // Извлекаем данные
+                    var pingData = snapshot.data!;
+                    var response = pingData.response;
+                    if (response == null) {
+                      return Image.asset("assets/icons/signal0.png", width: 32, height: 32, color: Colors.red);
+                    }
+
+                    var time = response.time;
+                    if (time == null) {
+                      return Image.asset("assets/icons/signal0.png", width: 32, height: 32, color: Colors.red);
+                    }
+
+                    // Вычисляем значение ms
+                    var ms = time.inMilliseconds;
+                    print("Current ms: $ms");
+
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Image.asset("assets/icons/signal0.png", width: 32, height: 32, color: Colors.grey.shade400);
                     }

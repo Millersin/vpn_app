@@ -16,13 +16,8 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<double> _scaleAnimation;
-
-  // Переменные для анимации каждого круга
   late List<Animation<double>> _circleAnimations;
-
-  // Переменные для анимации полосы загрузки
-  double _progress = 0.0; // Прогресс загрузки (от 0.0 до 1.0)
+  double _progress = 0.0; // Прогресс загрузки
 
   @override
   void initState() {
@@ -49,17 +44,13 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     // Запускаем прогресс загрузки
     _startLoading();
   }
-
-  // Функция для начала загрузки (имитируем прогресс)
-  void _startLoading() {
-    Future.delayed(const Duration(milliseconds: 100), () {
-      if (_progress < 1.0) {
-        setState(() {
-          _progress += 0.038; // Увеличиваем прогресс на каждом шаге
-        });
-        _startLoading(); // Рекурсивно продолжаем увеличивать прогресс
-      }
-    });
+  void _startLoading() async {
+    while (_progress < 1.0) {
+      await Future.delayed(const Duration(milliseconds: 50)); // Имитация работы (например, задержка)
+      setState(() {
+        _progress += 0.038; // Увеличиваем прогресс на каждом шаге
+      });
+    }
   }
 
   @override
@@ -72,7 +63,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
           fit: StackFit.expand,
           children: [
             Image.asset(
-              'assets/images/splash_img.png',
+              'assets/images/splash_img.webp',
               fit: BoxFit.cover,
               width: double.infinity,
               height: double.infinity,
@@ -120,39 +111,32 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     );
   }
 
-  // Метод для вычисления позиции кругов по окружности
   List<Widget> _buildCircles() {
-    // Радиус окружности (меняйте этот параметр для изменения расстояния)
-    double radius = 30.0; // Уменьшено для более близкого расположения кругов
-    // Размер кругов (меняйте этот параметр для изменения размера)
-    double circleSize = 15.0; // Уменьшено для уменьшения размера кругов
-
-    // Количество кругов
+    double radius = 30.0;
+    double circleSize = 15.0;
     int totalCircles = 4;
-    // Угол между кругами (360 градусов / количество кругов)
     double angle = 2 * pi / totalCircles;
 
     List<Widget> circles = [];
     for (int i = 0; i < totalCircles; i++) {
-      // Вычисляем угол для каждого круга
       double xPos = radius * cos(i * angle);
       double yPos = radius * sin(i * angle);
 
       circles.add(
         Positioned(
-          left: 0.5 * MediaQuery.of(context).size.width + xPos - (circleSize / 2),  // Сдвигаем на половину размера круга
-          top: 0.25 * MediaQuery.of(context).size.height + yPos - (circleSize / 2),   // Сдвигаем на половину размера круга
+          left: 0.5 * MediaQuery.of(context).size.width + xPos - (circleSize / 2),
+          top: 0.25 * MediaQuery.of(context).size.height + yPos - (circleSize / 2),
           child: AnimatedBuilder(
             animation: _circleAnimations[i],
             builder: (context, child) {
               return Transform.scale(
-                scale: _circleAnimations[i].value, // Применяем анимацию масштаба для каждого круга
+                scale: _circleAnimations[i].value,
                 child: Container(
-                  width: circleSize, // Размер круга
-                  height: circleSize, // Размер круга
+                  width: circleSize,
+                  height: circleSize,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Color(0xFF7E5AFF), // Цвет круга
+                    color: Color(0xFF7E5AFF),
                   ),
                 ),
               );

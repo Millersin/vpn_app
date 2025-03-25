@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "237112806231",
-    "project_id": "nerdvpn-codecanyon",
-    "storage_bucket": "nerdvpn-codecanyon.appspot.com"
+    "project_number": "349588567044",
+    "project_id": "vashchenko-vpn",
+    "storage_bucket": "vashchenko-vpn.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:237112806231:android:b753eabb27bd6a05b70c12",
+        "mobilesdk_app_id": "1:349588567044:android:593149a0892f72e0c57151",
         "android_client_info": {
-          "package_name": "com.laskarmedia.nerdvpn"
+          "package_name": "com.vashchenko.vpn"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDETBirM249TGN8OMW8jBt3-XAdP6llEpk"
+          "current_key": "AIzaSyA68QNYzFrPIalCMPhb2E577_xiSFHSxB0"
         }
       ],
       "services": {

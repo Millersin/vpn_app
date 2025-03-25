@@ -47,7 +47,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.laskarmedia.nerdvpn"  
+        applicationId "com.vashchenko.vpn"
         minSdkVersion 24
         targetSdkVersion 34
         multiDexEnabled true

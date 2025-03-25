@@ -22,14 +22,14 @@ class IpDetail extends Model {
   String yourFuckingCountryCode;
 
   factory IpDetail.fromJson(Map<String, dynamic> json) => IpDetail(
-        yourFuckingIpAddress: json["YourFuckingIPAddress"] ?? "",
-        yourFuckingLocation: json["YourFuckingLocation"] ?? "",
-        yourFuckingHostname: json["YourFuckingHostname"] ?? "",
-        yourFuckingIsp: json["YourFuckingISP"] ?? "",
-        yourFuckingTorExit: json["YourFuckingTorExit"] ?? false,
-        yourFuckingCity: json["YourFuckingCity"] ?? "",
-        yourFuckingCountry: json["YourFuckingCountry"] ?? "",
-        yourFuckingCountryCode: json["YourFuckingCountryCode"] ?? "",
+        yourFuckingIpAddress: json["ip"] ?? "",
+        yourFuckingLocation: json["region_name"] ?? "",
+        yourFuckingHostname: json["hostname"] ?? "",
+        yourFuckingIsp: json["asn_org"] ?? "",
+        yourFuckingTorExit: false,
+        yourFuckingCity: json["city"] ?? "",
+        yourFuckingCountry: json["country"] ?? "",
+        yourFuckingCountryCode: json["country_iso"] ?? "",
       );
 
   @override

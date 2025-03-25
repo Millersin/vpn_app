@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 //TODO: Put your endpoint and vpn auth here
-const String endpoint = "https://REPLACE_WITH_YOUR_ENDPOINT/api/"; //Please see the pattern, it must end with / 
+const String endpoint = "http://147.45.230.60/api/"; //Please see the pattern, it must end with /
 const String vpnUsername = "";
 const String vpnPassword = "";
 const bool certificateVerify = true; //Turn it on if you use certificate
 
-const String appName = "Vashenko VPN";
+const String appName = "Vashchenko VPN";
 
 ///TODO: Default theme mode
 ThemeMode themeMode = ThemeMode.system;

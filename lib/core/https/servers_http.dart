@@ -54,7 +54,7 @@ class ServersHttp extends HttpConnection {
 
   ///Get IP informations
   Future<IpDetail?> getPublicIP() async {
-    var resp = await get("https://myip.wtf/json", pure: true);
+    var resp = await get("https://ipconfig.io/json", pure: true);
     return resp != null ? IpDetail.fromJson(resp) : null;
   }
 }
