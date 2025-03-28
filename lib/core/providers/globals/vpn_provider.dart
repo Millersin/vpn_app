@@ -30,6 +30,12 @@ class VpnProvider extends ChangeNotifier {
 
   ///Initialize VPN engine and load last server
   void initialize(BuildContext context) {
+
+    print('Проверка параметров инициализации:');
+    print('groupIdentifier: $groupIdentifier');
+    print('localizationDescription: $localizationDescription');
+    print('providerBundleIdentifier: $providerBundleIdentifier');
+    
     engine = OpenVPN(onVpnStageChanged: onVpnStageChanged, onVpnStatusChanged: onVpnStatusChanged)
       ..initialize(
         lastStatus: onVpnStatusChanged,

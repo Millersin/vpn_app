@@ -26,8 +26,8 @@ const bool showSignalStrength = true;
 const bool cacheServerList = true;
 
 //TODO: iOS setup
-const String providerBundleIdentifier = "com.laskarmedia.nerdvpn.VPNExtension"; //Before it was VpnExtensionIdentifier
-const String groupIdentifier = "group.com.laskarmedia.nerdvpn";
+const String providerBundleIdentifier = "com.vashchenkovpn.app.VPNExtension"; //Before it was VpnExtensionIdentifier
+const String groupIdentifier = "group.com.vashchenkovpn.app";
 const String iosAppID = "1234567890";
 const String localizationDescription = "Vashenko VPN - Fast & Secure VPN";
 
